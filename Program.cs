@@ -38,43 +38,42 @@ namespace Slotkin_P1
                 Console.WriteLine("a given container under certain conditions: ");
                 string gasName = Console.ReadLine();
 
-                //if gas not found, display an error message and break out of the loop
-                //for (int i = 1; i < countGases; i++)
-                //{
-                //    if (String.Equals(gasName, gasNames[i]) == false)
-                //    {
-                //        Console.WriteLine("ERROR! You have made an invalid selection.");
-                //    }
-                //    break;
-                //}
-
                 //call GetMolecularWeightFromName()
                 //Program.GetMolecularWeightFromName(gasName, gasNames, molecularWeights, countGases);
 
-                //ask the user for the volume of the gas in cubic meters
-                Console.WriteLine("Please enter the volume in cubic meters: ");
-                string volTemp = Console.ReadLine();
-                double vol = Convert.ToDouble(volTemp); 
+                //if gas not found (aka, no molecularWeigth), display an error message and break out of the loop
+                if (molecularWeight == -1)
+                {
+                    Console.WriteLine("ERROR! You have made an invalid selection.");
+                    break;
+                }
+                else
+                {
+                    //ask the user for the volume of the gas in cubic meters
+                    Console.WriteLine("Please enter the volume in cubic meters: ");
+                    string volTemp = Console.ReadLine();
+                    double vol = Convert.ToDouble(volTemp);
 
-                //ask the user for the mass of the gas in grams
-                Console.WriteLine("Please enter the mass in grams: ");
-                string massTemp = Console.ReadLine();
-                double mass = Convert.ToDouble(massTemp);
+                    //ask the user for the mass of the gas in grams
+                    Console.WriteLine("Please enter the mass in grams: ");
+                    string massTemp = Console.ReadLine();
+                    double mass = Convert.ToDouble(massTemp);
 
-                //ask the user for the temperature in celsius
-                Console.WriteLine("Please enter the temperature in celsius: ");
-                string tempTemp = Console.ReadLine();
-                double temp = Convert.ToDouble(tempTemp);
+                    //ask the user for the temperature in celsius
+                    Console.WriteLine("Please enter the temperature in celsius: ");
+                    string tempTemp = Console.ReadLine();
+                    double temp = Convert.ToDouble(tempTemp);
 
-                //call Pressure()
-                Program.Pressure(mass, vol, temp, molecularWeight, moles, R);   
+                    //call Pressure()
+                    Program.Pressure(mass, vol, temp, molecularWeight, moles, R);
 
-                //call DisplayPressure()
-                Program.DisplayPressure(ref pascals, gasName, ref gasPSI);      
+                    //call DisplayPressure()
+                    Program.DisplayPressure(pascals, gasName, gasPSI);
 
-                //ask the user if they want to do another
-                Console.WriteLine("Would you like to do another? y/n");
-                answer = Console.ReadLine();
+                    //ask the user if they want to do another
+                    Console.WriteLine("Would you like to do another? y/n");
+                    answer = Console.ReadLine();
+                }
             } while (answer == "y");
 
             //say goodbye
@@ -130,19 +129,27 @@ namespace Slotkin_P1
 
         //private static double GetMolecularWeightFromName(string gasName, string[] gasNames, double[] molecularWeights, int countGases)
         //{
-        //    double molecularWeight; 
+        //    double molecularWeightTemp;
+        //    double molecularWeight;
         //    //gets and returns the molecular weight of the gas selected by the user
-        //    for (int i = 1; i < countGases; i++)
+        //    for (int i = 0; i < countGases; i++)
         //    {
         //        if (String.Equals(gasName, gasNames[i]) == true)
         //        {
         //            //return molecularWeights[i] parallel/= to gasNames[i]
-        //            molecularWeight = molecularWeights[i];
-        //            return molecularWeight; 
-        //        }   
+        //            molecularWeightTemp = molecularWeights[i];
+        //        }
+        //        else
+        //        {
+        //            molecularWeightTemp = -1;
+        //        }
+
+        //        molecularWeight = molecularWeightTemp;  
         //    }
+            
+        //    return molecularWeight;  
         //}
-          
+
         static double Pressure(double mass, double vol, double temp, double molecularWeight, double moles, double R)
         {
             //calculate and return pressure in pascals using (P = nRT/V):
@@ -167,10 +174,10 @@ namespace Slotkin_P1
             return kelvin;
         }
 
-        private static void DisplayPressure(ref double pascals, string gasName, ref double gasPSI)  
+        private static void DisplayPressure(double pascals, string gasName, double gasPSI)  
         {
-            //call PaToPSI()
-            Program.PaToPSI(pascals);  
+            //call PaToPSI(), assign to gasPSI in order to get the calcualted value 
+            gasPSI = Program.PaToPSI(pascals);  
             //display pressure in both pascals and PSI
             Console.WriteLine("For the gas {0}, it has a pressure of {1} pascals and a PSI of {2}.", gasName, pascals, gasPSI);  
         }
