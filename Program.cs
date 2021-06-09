@@ -41,7 +41,7 @@ namespace Slotkin_P1
                 //if gas not found (aka, molecularWeight of -1), display an error message and break out of the loop
                 if (molecularWeight == -1)
                 {
-                    Console.WriteLine("ERROR! You have made an invalid selection.");
+                    Console.WriteLine("\nERROR! You have made an invalid selection.");
                     break;
                 }
                 else
