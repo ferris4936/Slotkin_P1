@@ -74,7 +74,7 @@ namespace Slotkin_P1
             } while (answer == "y");
 
             //say goodbye
-            Console.WriteLine("\nPhwew, I was getting tired of doing all of those calculations!");
+            Console.WriteLine("\nPhwew, I was getting tired of doing calculations!");
             Console.WriteLine("Goodbye, enjoy the rest of your day.\n\n\n");
 
             Console.ReadLine(); //so the program waits for an entry before quitting
@@ -105,7 +105,6 @@ namespace Slotkin_P1
                 gasNames[i] = lineSplit[0];
                 //molecularWeights changed into an array of doubles 
                 molecularWeights[i] = Convert.ToDouble(lineSplit[1]);
-
                 //get count of elements in the array 
                 countGases = linesInFile.Length - 1;
             }
@@ -159,7 +158,7 @@ namespace Slotkin_P1
 
         static double NumberOfMoles(double mass, double molecularWeight)
         {
-            //calculate and return moles using mass / molecular weight)
+            //calculate and return moles using mass/molecularWeight)
             double moles = mass / molecularWeight;
             return moles;
         }
