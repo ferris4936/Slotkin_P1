@@ -42,6 +42,7 @@ namespace Slotkin_P1
                 if (molecularWeight == -1)
                 {
                     Console.WriteLine("\nERROR! You have made an invalid selection.");
+                    // GLENN: Per spec, this should do a continue.
                     break;
                 }
                 else
@@ -72,6 +73,7 @@ namespace Slotkin_P1
                     answer = Console.ReadLine();
                 }
             } while (answer == "y");
+            // GLENN: Be careful, use String.Equals(...), or another.Equals(...) to compare strings.
 
             //say goodbye
             Console.WriteLine("\nPhwew, I was getting tired of doing calculations!");
@@ -102,6 +104,9 @@ namespace Slotkin_P1
                 //split the line on the comma
                 string[] lineSplit = line.Split(',');
                 //names of the gases as an array of strings
+                // GLENN: gasNames contains the header line, if you don't want it to, do this:
+                // gasNames[i-1] = lineSplit[0];
+                // molecularWeights[i-1] = Convert.ToDouble(lineSplit[1]);
                 gasNames[i] = lineSplit[0];
                 //molecularWeights changed into an array of doubles 
                 molecularWeights[i] = Convert.ToDouble(lineSplit[1]);
@@ -113,6 +118,9 @@ namespace Slotkin_P1
         private static void DisplayGasNames(string[] gasNames, int countGases)
         {
             //display the gasNames[] to the user in 3 columns
+            // GLENN: because gasNames contains the header line,
+            // the comparison needs to be i <= countGases.
+            // The current condition causes "Water Vapor" to not display.
             for (int i = 1; i < countGases; i++)
             {
                 Console.Write("{0, -20}", gasNames[i]);
@@ -128,6 +136,9 @@ namespace Slotkin_P1
         {
             double molecularWeight;
             //gets and returns the molecular weight of the gas selected by the user
+            // GLENN: because gasNames contains the header line,
+            // the comparison needs to be i <= countGases.
+            // The current condition causes "Water Vapor" to not work.
             for (int i = 0; i < countGases; i++)
             {
                 if (String.Equals(gasName, gasNames[i]) == true)
@@ -141,7 +152,7 @@ namespace Slotkin_P1
                     molecularWeight = -1;
                 }
             }
-            return molecularWeight = -1;  
+            return molecularWeight = -1;   // GLENN: can just return -1;
         }
 
         static double Pressure(double mass, double vol, double temp, double molecularWeight)
